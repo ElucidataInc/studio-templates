@@ -1,0 +1,12 @@
+{
+    "parameter" : [
+        {
+            "name" : "::viz_type::",
+            "value" : "chart_name"
+        },
+        {
+            "name": "chart_param_1",
+            "value": "param_value_1"
+        }
+    ]
+}
