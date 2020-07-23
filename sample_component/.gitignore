@@ -1,0 +1,8 @@
+input_mount/*
+!input_mount/.gitkeep
+
+output_mount/*
+!output_mount/.gitkeep
+
+package-invoker/*
+!package-invoker/.gitkeep
