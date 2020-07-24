@@ -20,7 +20,6 @@ RUN pip install --upgrade pip
 
 # -------------Package installations-------------
 
-COPY --from=studio-req studio/docker_run_py.sh ./docker_run.sh
 RUN pip3 install -r ./algorithm/requirements.txt --no-dependencies
 
 # ------------------End----------------------
@@ -28,6 +27,8 @@ RUN pip3 install -r ./algorithm/requirements.txt --no-dependencies
 # Package Invoker Installation
 COPY --from=studio-req studio/package-invoker/. ./package-invoker/
 RUN pip3 install -r ./package-invoker/requirements.txt
+
+COPY --from=studio-req studio/docker_run.sh ./docker_run.sh
 
 ENV io_file_URL=xyz
 
