@@ -1,1 +1,0 @@
-## How to create a component for R in Polly Data Studio

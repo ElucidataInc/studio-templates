@@ -1,4 +1,4 @@
-FROM mithoopolly/data-studio:studio-requirements-v1 AS studio-req
+FROM mithoopolly/data-studio:studio-requirements-r-prod-1.0.0 AS studio-req
 WORKDIR /studio
 
 FROM mithoopolly/ipython-r-docker:1.0.0
@@ -12,7 +12,7 @@ RUN apt-get install -y --no-install-recommends libgmp3-dev && \
     apt-get install -y --no-install-recommends libpoppler-cpp-dev && \
     apt-get install -y --no-install-recommends libglu1-mesa-dev freeglut3-dev mesa-common-dev libfreetype6-dev libmagick++-dev
 
-COPY temp/ .
+COPY code/ .
 
 RUN pip install --upgrade pip
 
@@ -25,8 +25,9 @@ RUN R -e 'BiocManager::install(c("clusterProfiler"))'
 
 # Package Invoker Installation
 COPY --from=studio-req studio/package-invoker/. ./package-invoker/
-RUN ls ./package-invoker
 RUN pip3 install -r ./package-invoker/requirements.txt
+
+COPY --from=studio-req studio/docker_run.sh ./docker_run.sh
 
 ENV io_file_URL=xyz
 
