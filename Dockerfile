@@ -1,4 +1,4 @@
-FROM mithoopolly/data-studio:studio-requirements-v1 AS studio-req
+FROM mithoopolly/data-studio:studio-requirements-py3-prod AS studio-req
 WORKDIR /studio
 
 FROM mithoopolly/ipython-py3-docker:3.0.0
