@@ -13,7 +13,7 @@ RUN apt-get install -y --no-install-recommends libgmp3-dev && \
     apt-get install -y --no-install-recommends libglu1-mesa-dev freeglut3-dev mesa-common-dev libfreetype6-dev libmagick++-dev &&\
     apt-get install -y --no-install-recommends libpython3-dev build-essential
 
-COPY temp/ .
+COPY code/ .
 
 # Python 3 installations
 RUN pip install --upgrade pip
@@ -27,7 +27,6 @@ RUN pip3 install -r ./algorithm/requirements.txt --no-dependencies
 
 # Package Invoker Installation
 COPY --from=studio-req studio/package-invoker/. ./package-invoker/
-RUN ls ./package-invoker
 RUN pip3 install -r ./package-invoker/requirements.txt
 
 ENV io_file_URL=xyz
