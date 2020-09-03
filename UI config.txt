@@ -1,0 +1,12 @@
+UI config reference document: https://docs.google.com/document/d/192Wy5tuDM3rbnG20LU9z-oruJOXiAJiFHPWowqZgpAQ/edit?usp=sharing
+Add the config for all UI elements required for this component in the preferred order of display. 
+Some sample elements have been provided in this file. 
+NOTE: Ensure that the File names mentioned here are the same File names used in the main script.
+
+Name: "Sample Python Component"
+{
+  UI element: "FILE",
+  Display name: "Select Expression file",
+  File name: "expression.csv",
+  Required: "true"
+}

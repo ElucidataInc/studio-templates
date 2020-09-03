@@ -7,35 +7,35 @@ import sys
 # ------xxxx-------
 
 # --------Input-output filepaths--------
-input_folder = "../input_mount"
-input_filepath = input_folder + "/expression.csv"
-metadata_filepath = input_folder + "/metadata.csv"
-param_filepath = input_folder + "/parameter.json"
-output_folder = "../output_mount"
+input_folder = "../input_mount" #Part of template. DO NOT EDIT
+param_filepath = input_folder + "/parameter.json" #Part of template. DO NOT EDIT
+output_folder = "../output_mount" #Part of template. DO NOT EDIT
+
+expression_filepath = input_folder + "/expression.csv"
+
+# all files written into the output folder will be available on the Studio interface
+# as input for downstream components in a workflow
 output_filepath = output_folder + "/output.csv"
 # ----------xxxx---------
 
 # --------Function definitions----------
-def function1(df, arg1, arg2):
-    print(df)
+def function_name(df, param1, param2):
     return df
 # --------xxxx---------
 
 # -------Read input----------
-if os.path.exists(met_csv):
-    df = pd.read_csv(met_csv, index_col = False)
+if os.path.exists(expression_filepath):
+    df = pd.read_csv(expression_filepath, index_col = False)
 else:
-    sys.exit("Data file not found")
+    sys.exit("Expression file not found")
 
+# check if row identifiers are provided in a row.names column
+# if not, the first column is used as the row identifier
 if 'row.names' in list(df.columns.values):
     df = df.set_index('row.names')
 else:
     df = df.set_index(list(df.columns.values)[0])
 
-if os.path.exists(metadata_filepath):
-    met_df = pd.read_csv(metadata_filepath, index_col = 0)
-else:
-    sys.exit("Cohort file not found")
 # -------xxxx---------
 
 # ---------Read user-selected parameters--------
@@ -49,12 +49,35 @@ for key in param['parameter']:
         param1 = value
     elif name == 'param2':
         param2 = int(value)
+
 # --------xxxx--------
 
 # ------Add algorithm--------
-output_df = function1(df, param1, param2)
+
+output_df = function_name(df, param1, param2)
+
 # -------xxxx-------
 
-# -------Save output files-------
+# -------Write output files-------
 output_df.to_csv(output_filepath, index = False)
-# -----xxxx--------
+# -------xxxx--------
+
+# ---------Add visualisations---------
+
+# Source visualisation library
+from viz import studio_viz
+
+# Create a table with the given title on Polly Data Studio
+studio_viz.save_table(output_df, "Table Title")
+
+# Polly Data Studio supports image visualisation (.PNG files only). Create any plot and save as PNG.
+import matplotlib.pyplot as plt
+col1 = output_df.columns[0]
+col3 = output_df.columns[2]
+plt.scatter(output_df[col1], output_df[col3], color="black")
+png_path = output_folder + "/plot.png"
+plt.savefig(png_path)
+
+# Render this PNG on Polly Data Studio
+studio_viz.save_png(png_path, "Chart Title")
+# ------------xxxx------------

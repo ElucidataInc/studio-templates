@@ -13,10 +13,13 @@ RUN apt-get install -y --no-install-recommends libgmp3-dev && \
     apt-get install -y --no-install-recommends libglu1-mesa-dev freeglut3-dev mesa-common-dev libfreetype6-dev libmagick++-dev &&\
     apt-get install -y --no-install-recommends libpython3-dev build-essential
 
-COPY code/ .
+COPY temp/ .
+
+COPY --from=studio-req studio/viz/. ./algorithm/viz/
 
 # Python 3 installations
 RUN pip install --upgrade pip
+RUN pip install Pillow
 
 # -------------Package installations-------------
 
