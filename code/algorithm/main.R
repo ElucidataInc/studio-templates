@@ -1,53 +1,78 @@
 #!/usr/bin/env Rscript
-source("script.R", chdir=TRUE)
+#source("script.R", chdir=TRUE)
 
 # ----Import packages----
 library("rjson")
-library("tidyr")
 
 # --------xxxx--------
 
 # ----I/O filepath definitions----
-input_folder <- "../input_mount"
-param_filepath <- paste0(input_folder, "/parameter.json")
-input_filepath <- paste0(input_folder, "/data_file.csv")
-metadata_filepath <- paste0(input_folder, "/metadata.csv")
 
-output_folder <- "../output_mount"
-output_filepath <- paste0(output_folder, "/output_file1.csv")
+input_folder <- "../input_mount" #Part of template. DO NOT EDIT.
+output_folder <- "../output_mount" #Part of template. DO NOT EDIT.
+param_filepath <- paste0(input_folder, "/parameter.json") #Part of template. DO NOT EDIT.
+
+expression_filepath <- paste0(input_folder, "/expression.csv")
+# all files written into the output folder will be available on the Studio interface
+# as input for downstream components in a workflow
+
+output_filepath <- paste0(output_folder, "/output.csv")
 # -------xxxx-------
 
-# -------Data import--------
-df <- read.csv(input_filepath, stringsAsFactors = F, check.names = F)
+# --------Function definitions----------
+
+function_name <- function(df, param1, param2) {
+
+}
+
+# -------Read input--------
+
+df <- read.csv(expression_filepath, stringsAsFactors = F, check.names = F)
+
+# check if row identifiers are provided in a row.names column
+# if not, the first column is used as the row identifier
 if ("row.names" %in% names(df)) {
   rownames(df) <- df$row.names
   df <- subset(df, select = -c(row.names))
-} else {
-  rownames(df) <- df[,1]
 }
-metadata_df <- read.csv(metadata_filepath, stringsAsFactors = F, check.names = F)
-rownames(metadata_df) <- metadata_df[, 1]
+
 # --------xxxx--------
 
 # -----Parse user parameters----
 param <- fromJSON(file = param_filepath)
 
 for (key in param$parameter) {
-  if (key$name == 'param1_name') {
+  if (key$name == 'param1') {
     param1 <- key$value
-  }
-  else if (key$name == 'param2_name') {
-    param2 <- key$value
+  } else if (key$name == 'param2') {
+    param2 <- as.numeric(key$value)
   }
 }
+
 # --------xxxx---------
 
 # ------Add algorithm---------
 # Add all computation logic here
+
 output_df <- function_name(df, param1, param2)
 # -------xxxx--------
 
-# -----Write output file-----
-output_df$row.names = rownames(output_df)
-write.csv(output_df, output_filepath, row.names=F)
-# -------xxxx-------
+# --------Add visualisations---------
+
+# Polly Data Studio supports image visualisation (.PNG files only)
+library(ggplot2)
+png_path <- paste0(output_folder, "/plot.png")
+png(png_path)
+print(plot)
+dev.off()
+
+# Uncomment below statements to source visualisation library
+# library("reticulate")
+# source_python("viz/studio_viz.py")
+
+# save_png(png_path, "Plot name")
+
+# save_table(dataframe, table_title) creates a table with the given title on Polly Data Studio
+# save_table(output_df, "Table name")
+
+# ----------xxxx-----------

@@ -12,14 +12,26 @@ RUN apt-get install -y --no-install-recommends libgmp3-dev && \
     apt-get install -y --no-install-recommends libpoppler-cpp-dev && \
     apt-get install -y --no-install-recommends libglu1-mesa-dev freeglut3-dev mesa-common-dev libfreetype6-dev libmagick++-dev
 
-COPY code/ .
+RUN apt-get install -y --no-install-recommends python3.6-dev
+
+COPY temp/ .
+
+COPY --from=studio-req studio/viz/. ./algorithm/viz/
 
 RUN pip install --upgrade pip
 
 # -------------Package installations-------------
 
-RUN R -e 'install.packages(c("BiocManager","dplyr","rjson","tidyjson","tidyr","readxl"), repo="https://cloud.r-project.org/")'
-RUN R -e 'BiocManager::install(c("clusterProfiler"))'
+# Add CRAN packages required by the script. Removing the following packages will result in undefined behavior
+RUN R -e 'install.packages(c("dplyr","rjson","reticulate", "ggplot2"), repo="https://cloud.r-project.org/")'
+
+# Uncomment next line for Bioconductor package installations
+# RUN R -e 'install.packages("BiocManager", repo="https://cloud.r-project.org/")'
+# RUN R -e 'BiocManager::install(c("scAlign"))'
+
+# Uncomment next line for devtool package installations
+# RUN R -e 'install.packages("devtools", repo="https://cloud.r-project.org/")'
+# RUN R -e 'devtools::install_github("r-lib/devtools")'
 
 # ------------------End----------------------
 

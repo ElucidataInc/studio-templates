@@ -2,11 +2,11 @@
     "parameter": [
       {
         "name": "param1",
-        "value": "metaGroupId,compound,groupId"
+        "value": "value"
       },
       {
         "name": "param2",
-        "value": "1"
+        "value": "value"
       }
     ]
   }
