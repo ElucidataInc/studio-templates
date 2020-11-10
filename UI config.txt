@@ -1,12 +1,74 @@
-UI config reference document: https://docs.google.com/document/d/192Wy5tuDM3rbnG20LU9z-oruJOXiAJiFHPWowqZgpAQ/edit?usp=sharing
-Add the config for all UI elements required for this component in the preferred order of display. 
-Some sample elements have been provided in this file. 
-NOTE: Ensure that the File names mentioned here are the same File names used in the main script.
-
-Name: "Sample Python Component"
 {
-  UI element: "FILE",
-  Display name: "Select Expression file",
-  File name: "expression.csv",
-  Required: "true"
+  "config": {
+    "environment": [
+
+    ],
+    "hard_stop": 7200,
+    "image_url": "docker.polly.elucidata.io/elucidata/<component-name>",
+    "mapping": {
+      "host": [
+
+      ],
+      "port": [
+
+      ]
+    },
+    "requirements": {
+      "cpu": {
+        "unit": "CORE",
+        "value": 1
+      },
+      "gpu": {
+        "unit": "MB",
+        "value": 0
+      },
+      "memory": {
+        "unit": "GB",
+        "value": "2Gi"
+      },
+      "storage": {
+        "unit": "MB",
+        "value": 0
+      }
+    },
+    "tag": "<tag-name>"
+  },
+  "created_by": "Elucidata",
+  "io_specs": {
+    "inputs": [
+      {
+        "data_type": "FILE",
+        "default": null,
+        "file_path": "",
+        "label": "",
+        "name": "",
+        "required": true,
+        "sample": "",
+        "validations": {
+          "FILE": {
+            "allowed_extentions": [
+              ".csv"
+            ]
+          }
+        }
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "FILE",
+        "default": null,
+        "file_path": "",
+        "label": "",
+        "name": "",
+        "required": true
+      }
+    ]
+  },
+  "is_active": true,
+  "is_public": true,
+  "name": "<Component Display Name>",
+  "node_id": "",
+  "type": "DOCKER",
+  "version": "1.0.1",
+  "visualisation": null
 }
