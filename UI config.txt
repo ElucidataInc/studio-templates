@@ -5,8 +5,20 @@ NOTE: Ensure that the File names mentioned here are the same File names used in 
 
 Name: "Sample R Component"
 {
+"inputs": [
+{
   UI element: "FILE",
   Display name: "Select Expression file",
   File name: "expression.csv",
   Required: "true"
+}
+],
+"outputs: [
+  {
+    UI element: "FILE",
+    Display name: "Output file",
+    File name: "output.csv",
+    Required: "true"
+  }
+]
 }

@@ -3,6 +3,7 @@
 
 # ----Import packages----
 library("rjson")
+library("reticulate")
 
 # --------xxxx--------
 
@@ -59,20 +60,7 @@ output_df <- function_name(df, param1, param2)
 
 # --------Add visualisations---------
 
-# Polly Data Studio supports image visualisation (.PNG files only)
-library(ggplot2)
-png_path <- paste0(output_folder, "/plot.png")
-png(png_path)
-print(plot)
-dev.off()
-
-# Uncomment below statements to source visualisation library
-# library("reticulate")
-# source_python("viz/studio_viz.py")
-
-# save_png(png_path, "Plot name")
-
-# save_table(dataframe, table_title) creates a table with the given title on Polly Data Studio
-# save_table(output_df, "Table name")
+viz <- import("viz.studio_viz")
+viz$save_table(output_df, "Table Name")
 
 # ----------xxxx-----------
