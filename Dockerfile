@@ -6,10 +6,12 @@ USER root
 # Python 3 installations
 RUN pip install --upgrade pip
 
+# Add all dependencies between the dashed lines
+# -----------------------------------------------------
 RUN R -e 'install.packages(c("tidyjson","tidyr","readxl"), repo="https://cloud.r-project.org/")'
 
 #RUN R -e 'BiocManager::install(c("gage"))'
-
+#------------------------------------------------------
 COPY temp/ .
 
 RUN cp -r ./viz/. ./algorithm/viz/
