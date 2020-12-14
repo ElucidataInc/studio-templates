@@ -1,4 +1,4 @@
-FROM mithoopolly/data-studio:studio-requirements-py3-0.2.0
+FROM mithoopolly/data-studio:studio-requirements-py3-0.2.5
 WORKDIR /studio
 
 USER root

@@ -69,15 +69,4 @@ from viz import studio_viz
 
 # Create a table with the given title on Polly Data Studio
 studio_viz.save_table(output_df, "Table Title")
-
-# Polly Data Studio supports image visualisation (.PNG files only). Create any plot and save as PNG.
-import matplotlib.pyplot as plt
-col1 = output_df.columns[0]
-col3 = output_df.columns[2]
-plt.scatter(output_df[col1], output_df[col3], color="black")
-png_path = output_folder + "/plot.png"
-plt.savefig(png_path)
-
-# Render this PNG on Polly Data Studio
-studio_viz.save_png(png_path, "Chart Title")
 # ------------xxxx------------
