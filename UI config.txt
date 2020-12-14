@@ -13,7 +13,7 @@ Name: "Sample R Component"
   Required: "true"
 }
 ],
-"outputs: [
+"outputs": [
   {
     UI element: "FILE",
     Display name: "Output file",
