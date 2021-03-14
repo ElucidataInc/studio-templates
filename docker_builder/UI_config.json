@@ -28,9 +28,9 @@ NOTE: Ensure that the File names mentioned here are the same File names used in 
         "unit": "MB"
       }
     },
-    "tag": "<tag-value>",
+    "tag": "latest",
     "hard_stop": 7200,
-    "image_url": ""
+    "image_url": "docker.polly.elucidata.io/<org_name>/<docker_repo>"
   },
   "created_by": "",
   "io_specs": {
@@ -62,6 +62,6 @@ NOTE: Ensure that the File names mentioned here are the same File names used in 
   "is_default": true,
   "is_public": true,
   "description": "This is about the component.",
-  "name": "Sample Python3 Component",
+  "name": "Sample Python Component",
   "type": "DOCKER"
 }
