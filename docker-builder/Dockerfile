@@ -1,4 +1,4 @@
-FROM mithoopolly/data-studio:studio-requirements-r-0.2.5
+FROM docker.polly.elucidata.io/elucidata/studio-requirements-r:latest
 WORKDIR /studio
 
 USER root
@@ -14,7 +14,7 @@ RUN R -e 'install.packages(c("tidyjson","tidyr","readxl"), repo="https://cloud.r
 #------------------------------------------------------
 COPY temp/ .
 
-RUN cp -r ./viz/. ./algorithm/viz/
+RUN cp -r ./viz/. ./algorithm/
 
 RUN ls -l
 ENTRYPOINT ["bash", "./docker_run.sh"]
