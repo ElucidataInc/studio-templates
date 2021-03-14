@@ -14,7 +14,7 @@ RUN R -e 'install.packages(c("tidyjson","tidyr","readxl"), repo="https://cloud.r
 #------------------------------------------------------
 COPY temp/ .
 
-RUN cp -r ./viz/. ./algorithm/
+RUN cp -r ./viz/ ./algorithm/viz/
 
 RUN ls -l
 ENTRYPOINT ["bash", "./docker_run.sh"]
